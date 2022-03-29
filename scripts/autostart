@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# this is just an example!
+# add your autostart stuffs here
+xbacklight -set 5 &
+xmodmap ~/.xmodmap-sid &
+picom -b --experimental-backends --config ~/.config/picom.conf &
+xrdb merge ~/.Xresources &
+feh --bg-fill ~/Pictures/bg.png &
+pulseaudio -D &
+# run bar script and dwm ( do not remove this )
+~/.config/chadwm/scripts/./bar.sh &
+dwm
