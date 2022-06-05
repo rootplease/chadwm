@@ -772,14 +772,14 @@ tile(Monitor *m)
 
 	sx = mx = m->wx + ov;
 	sy = my = m->wy + oh;
-	mh = m->wh - 2*oh - ih * (MIN(n, m->nmaster) - 1);
 	sh = m->wh - 2*oh - ih * (n - m->nmaster - 1);
+        mh = m->wh - 2*oh - ih * (MIN(n, m->nmaster) - 1);
 	sw = mw = m->ww - 2*ov;
 
 	if (m->nmaster && n > m->nmaster) {
-		sw = (mw - iv) * (1 - m->mfact);
-		mw = mw - iv - sw;
-		sx = mx + mw + iv;
+		mw = (sw - iv + 600) * (1 - m->mfact);
+		sw = sw - iv - mw;
+		mx = sx + sw + iv;
 	}
 
 	getfacts(m, mh, sh, &mfacts, &sfacts, &mrest, &srest);

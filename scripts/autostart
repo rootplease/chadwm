@@ -3,11 +3,17 @@
 # this is just an example!
 # add your autostart stuffs here
 xbacklight -set 5 &
+# init keyring
+eval $(/usr/bin/gnome-keyring-daemon --start --components=gpg,pkcs11,secrets,ssh)
+export GNOME_KEYRING_CONTROL GNOME_KEYRING_PID GPG_AGENT_INFO SSH_AUTH_SOCK
+/usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+export QT_STYLE_OVERRIDE=gtk
+
+# export keyring globals
 xmodmap ~/.xmodmap-sid &
 picom -b --experimental-backends --config ~/.config/picom.conf &
 xrdb merge ~/.Xresources &
 feh --bg-fill ~/Pictures/bg.png &
-pulseaudio -D &
 # run bar script and dwm ( do not remove this )
 ~/.config/chadwm/scripts/./bar.sh &
 dwm

@@ -1297,7 +1297,10 @@ void dragmfact(const Arg *arg) {
 #if HORIZGRID_LAYOUT
       || m->lt[m->sellt]->arrange == &horizgrid
 #endif // HORIZGRID_LAYOUT
-#if GAPPLESSGRID_LAYOUT
+#if R_LAYOUT
+      || m->lt[m->sellt]->arrange == &rlayout
+#endif
+ #if GAPPLESSGRID_LAYOUT
       || m->lt[m->sellt]->arrange == &gaplessgrid
 #endif // GAPPLESSGRID_LAYOUT
 #if NROWGRID_LAYOUT

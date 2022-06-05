@@ -1,5 +1,5 @@
 /* See LICENSE file for copyright and license details. */
-
+#include <string.h>
 #include <X11/XF86keysym.h>
 
 /* appearance */
@@ -29,7 +29,7 @@ static const int tag_preview        = 1;        /* 1 means enable, 0 is off */
 static const int colorfultag        = 1;        /* 0 means use SchemeSel for selected non vacant tag */
 
 static const char *fonts[]          = { "JetBrainsMono Nerd Font:style:Regular:size=12",
-                                        "Material Design Icons:style:Regular:size=10", "Material Design:style:Regular:size=10" };
+                                        "Material Icons:style:Regular:size=10", "Material Design:style:Regular:size=10" };
 
 // theme
 #include "themes/onedark.h"
@@ -53,7 +53,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static char *tags[] = {"", "", "", "", ""};
+static char *tags[] = {"","", "", "", ""};
 
 static const char* eww[] = { "eww", "open" , "eww", NULL };
 
@@ -76,8 +76,11 @@ static const Rule rules[] = {
      *	WM_CLASS(STRING) = instance, class
      *	WM_NAME(STRING) = title
      */
+
+
+
     /* class      instance    title       tags mask     iscentered   isfloating   monitor */
-    { "Gimp",     NULL,       NULL,       0,            0,           1,           -1 },
+    { "discord",  "discord",      NULL,   1 << 2,       0,           0,            1},
     { "Firefox",  NULL,       NULL,       1 << 8,       0,           0,           -1 },
     { "eww",      NULL,       NULL,       0,            0,           1,           -1 },
 };
@@ -131,20 +134,17 @@ static Key keys[] = {
     /* modifier                         key         function        argument */
     {0,             XF86XK_MonBrightnessDown,       spawn,          {.v = xd}},
     {0,               XF86XK_MonBrightnessUp,       spawn,          {.v = xi}},
-    {MODKEY|ControlMask,                XK_u,       spawn,
-        SHCMD("maim | xclip -selection clipboard -t image/png")},
-    {MODKEY,                            XK_u,       spawn,
-        SHCMD("maim --select | xclip -selection clipboard -t image/png")},
-    {0, XK_Print, spawn, SHCMD("maim --select | xclip -selection clipboard -t image/png")},
+    {MODKEY|ControlMask,                XK_u,       spawn,          SHCMD("flameshot gui")},
+    {MODKEY,                            XK_u,       spawn, 	    SHCMD("flameshot gui")},
+    {0, 				XK_Print,   spawn, 	    SHCMD("flameshot gui")},
     { MODKEY,                           XK_c,       spawn,          {.v = rofi } },
     { MODKEY,                           XK_Return,  spawn,          {.v = term }},
-    // { MODKEY,                       XK_Return, spawn,          SHCMD("st_pad && st")},
     { MODKEY,                           XK_b,       togglebar,      {0} },
     { MODKEY|ControlMask,               XK_w,       tabmode,        { -1 } },
     { MODKEY,                           XK_j,       focusstack,     {.i = +1 } },
     { MODKEY,                           XK_k,       focusstack,     {.i = -1 } },
-    { MODKEY,                           XK_i,       incnmaster,     {.i = +1 } },
-    { MODKEY,                           XK_d,       incnmaster,     {.i = -1 } },
+/*    { MODKEY,                           XK_i,       incnmaster,     {.i = +1 } }, */
+/*    { MODKEY,                           XK_d,       incnmaster,     {.i = -1 } }, */
     { MODKEY,                           XK_h,       setmfact,       {.f = -0.05} },
     { MODKEY,                           XK_l,       setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,                 XK_h,       setcfact,       {.f = +0.25} },
@@ -240,9 +240,6 @@ static Button buttons[] = {
     */
     { ClkClientWin,         MODKEY,         Button1,        moveorplace,    {.i = 0} },
     { ClkClientWin,         MODKEY,         Button2,        togglefloating, {0} },
-    { ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
-    { ClkClientWin,         ControlMask,    Button1,        dragmfact,      {0} },
-    { ClkClientWin,         ControlMask,    Button3,        dragcfact,      {0} },
     { ClkTagBar,            0,              Button1,        view,           {0} },
     { ClkTagBar,            0,              Button3,        toggleview,     {0} },
     { ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
